@@ -5,6 +5,7 @@ from config import Config
 from auth import auth_bp, load_user
 from google_auth import google_bp, register_google_oauth
 from password_gen import generate_bp
+import os
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -46,4 +47,5 @@ def error_page():
     return render_template("error.html")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
