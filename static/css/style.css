@@ -34,7 +34,7 @@ h1, h2 {
 /* Container - base form wrapper */
 .container, .complete-profile-container {
     max-width: 500px;
-    margin: 50px auto;
+    margin: 100px auto;
     padding: 30px 20px;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 15px;
@@ -206,4 +206,23 @@ button:hover {
     .logout-link {
         text-align: center;
     }
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    display: flex;
+    flex-direction: row;
+}
+
+.text-logo {
+    font-size: 100px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin: auto auto auto 50px;
+
 }

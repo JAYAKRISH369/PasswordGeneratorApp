@@ -5,7 +5,6 @@
   <title>Generate Password</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet"> -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -16,6 +15,36 @@
     <form method="POST">
       <input type="text" name="name" placeholder="Enter Password Name" required>
       <input type="text" name="key" placeholder="Enter Secret Key" required>
+
+      <label for="logicToggle">Use Enhanced Logic</label>
+      <input type="hidden" name="mode" id="modeInput" value="basic">
+      <input type="checkbox" id="logicToggle" name="enhanced_logic">
+
+      <div id="enhancedOptions" style="display: none;">
+        <label>Password Length:
+          <input type="number" name="length" min="8" max="64" value="16">
+        </label>
+
+        <label><input type="checkbox" name="use_lower" checked> Lowercase (a-z)</label>
+        <label><input type="checkbox" name="use_upper" checked> Uppercase (A-Z)</label>
+        <label><input type="checkbox" name="use_digits" checked> Digits (0-9)</label>
+        <label><input type="checkbox" name="use_symbols"> Symbols (!@#$%)</label>
+        <label><input type="checkbox" name="use_emojis"> Emojis (🚀💡🎯)</label>
+
+        <label for="complexity">Complexity:</label>
+        <select name="complexity" id="complexity">
+          <option value="1">Easy</option>
+          <option value="2">Medium</option>
+          <option value="3">Hard</option>
+        </select>
+
+        <label for="counter">Counter:</label>
+        <input type="number" name="counter" min="1" value="1">
+
+        <label for="custom_salt">Custom Salt:</label>
+        <input type="text" name="custom_salt" placeholder="Optional">
+      </div>
+
       <button type="submit">Generate</button>
     </form>
     {% endif %}
@@ -24,37 +53,48 @@
     <div class="password-card">
       <h2>Your Password</h2>
       <div class="password-line">
-  <div class="password-display" id="passwordText">{{ password }}</div>
-</div>
-
+        <div class="password-display" id="passwordText">{{ password }}</div>
+      </div>
     </div>
     {% endif %}
 
     <a href="/"><button style="margin-top: 15px;">⬅ Back to Home</button></a>
   </div>
 
-
   <div style="text-align: right; margin-bottom: 10px;">
-  <div class="containerLogout">
-
-    <div class="logout-link">
+    <div class="containerLogout">
+      <div class="logout-link">
         <a href="/logout">
           <img src="{{ url_for('static', filename='images/user-logout.png') }}" alt="Logout" style="width: 50px; height: 50px;">
         </a>
+      </div>
     </div>
-</div>
-
-</div>
+  </div>
 
   <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const passwordText = document.getElementById("passwordText");
+    document.addEventListener("DOMContentLoaded", function () {
+      const passwordText = document.getElementById("passwordText");
+      const logicToggle = document.getElementById("logicToggle");
+      const enhancedOptions = document.getElementById("enhancedOptions");
+      const modeInput = document.getElementById("modeInput");
 
-    passwordText.addEventListener("click", () => {
-      navigator.clipboard.writeText(passwordText.innerText);
+      if (passwordText) {
+        passwordText.addEventListener("click", () => {
+          navigator.clipboard.writeText(passwordText.innerText);
+        });
+      }
+
+      logicToggle.addEventListener("change", function () {
+        if (logicToggle.checked) {
+          enhancedOptions.style.display = "block";
+          modeInput.value = "enhanced";
+        } else {
+          enhancedOptions.style.display = "none";
+          modeInput.value = "basic";
+        }
+      });
     });
-  });
-</script>
+  </script>
 
 </body>
 </html>
