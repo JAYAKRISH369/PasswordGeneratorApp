@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Generate Password</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Password Generator</h1>
+
+    {% if not password %}
+    <form method="POST">
+      <input type="text" name="name" placeholder="Enter Password Name" required>
+      <input type="text" name="key" placeholder="Enter Secret Key" required>
+      <button type="submit">Generate</button>
+    </form>
+    {% endif %}
+
+    {% if password %}
+    <div class="password-card">
+      <h2>Your Password</h2>
+      <div class="password-line">
+  <div class="password-display" id="passwordText">{{ password }}</div>
+</div>
+
+    </div>
+    {% endif %}
+
+    <a href="/"><button style="margin-top: 15px;">⬅ Back to Home</button></a>
+  </div>
+
+
+  <div style="text-align: right; margin-bottom: 10px;">
+  <div class="containerLogout">
+
+    <div class="logout-link">
+        <a href="/logout">
+          <img src="{{ url_for('static', filename='images/user-logout.png') }}" alt="Logout" style="width: 50px; height: 50px;">
+        </a>
+    </div>
+</div>
+
+</div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const passwordText = document.getElementById("passwordText");
+
+    passwordText.addEventListener("click", () => {
+      navigator.clipboard.writeText(passwordText.innerText);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Password Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome, {{ username }}</h2>
+    <p style="text-align:center; font-size: 18px;">Secure your digital identity</p>
+    <a href="/generate"><button>Generate Password</button></a>
+    <a href="/logout"><button style="margin-top: 15px; background: #ff2e63;">Logout</button></a>
+  </div>
+</body>
+</html>
