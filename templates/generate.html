@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  {% include '_nav.html' %}
   <div class="container">
     <h1>Password Generator</h1>
 
@@ -28,11 +29,19 @@
       </select>
       <input type="text" name="key" placeholder="Enter Secret Key" required>
 
-      <label for="logicToggle">Use Enhanced Logic</label>
-      <input type="hidden" name="mode" id="modeInput" value="basic">
-      <input type="checkbox" id="logicToggle" name="enhanced_logic">
+      <div class="logic-toggle-row">
+        <div>
+          <strong>Enhanced Logic</strong>
+          <small>Recommended for stronger passwords</small>
+        </div>
+        <label class="switch" for="logicToggle">
+          <input type="hidden" name="mode" id="modeInput" value="basic">
+          <input type="checkbox" id="logicToggle" name="enhanced_logic">
+          <span class="slider"></span>
+        </label>
+      </div>
 
-      <div id="enhancedOptions" style="display: none;">
+      <div id="enhancedOptions" class="enhanced-options" style="display: none;">
         <label>Password Length:
           <input type="number" name="length" min="10" max="64" value="16">
         </label>
@@ -74,16 +83,6 @@
 
     <a href="/"><button style="margin-top: 15px;">⬅ Back to Home</button></a>
     <a href="{{ url_for('help_page') }}"><button style="margin-top: 15px;">How It Works</button></a>
-  </div>
-
-  <div style="text-align: right; margin-bottom: 10px;">
-    <div class="containerLogout">
-      <div class="logout-link">
-        <a href="/logout">
-          <img src="{{ url_for('static', filename='images/user-logout.png') }}" alt="Logout" style="width: 50px; height: 50px;">
-        </a>
-      </div>
-    </div>
   </div>
 
   <script>

@@ -1,0 +1,27 @@
+<header class="app-header">
+  <a class="app-brand" href="{{ url_for('index') }}">Password Generator</a>
+  <button class="menu-button" id="menuButton" type="button" aria-label="Open navigation" aria-expanded="false">&#9776;</button>
+  <nav class="app-menu" id="appMenu" aria-label="Main navigation">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('generate.generate_password_view') }}">Generate</a>
+    <a href="{{ url_for('generate.entries_page') }}">Saved Names</a>
+    <a href="{{ url_for('google.profile') }}">Edit Profile</a>
+    <a href="{{ url_for('help_page') }}">How It Works</a>
+    <a class="menu-logout" href="{{ url_for('logout') }}">Log out</a>
+  </nav>
+</header>
+<a class="fixed-logout" href="{{ url_for('logout') }}" aria-label="Log out" title="Log out">
+  <img src="{{ url_for('static', filename='images/user-logout.png') }}" alt="">
+</a>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const menuButton = document.getElementById('menuButton');
+    const appMenu = document.getElementById('appMenu');
+    if (menuButton && appMenu) {
+      menuButton.addEventListener('click', function () {
+        const isOpen = appMenu.classList.toggle('is-open');
+        menuButton.setAttribute('aria-expanded', String(isOpen));
+      });
+    }
+  });
+</script>

@@ -9,13 +9,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  {% include '_nav.html' %}
   <div class="container">
     <h2>Welcome, {{ username }}</h2>
     <p style="text-align:center; font-size: 18px;">Secure your digital identity</p>
     <a href="/generate"><button>Generate Password</button></a>
     <a href="{{ url_for('google.profile') }}"><button style="margin-top: 15px;">Edit Profile</button></a>
     <a href="{{ url_for('help_page') }}"><button style="margin-top: 15px;">How It Works</button></a>
-    <a href="/logout"><button style="margin-top: 15px; background: #ff2e63;">Logout</button></a>
   </div>
 </body>
 </html>

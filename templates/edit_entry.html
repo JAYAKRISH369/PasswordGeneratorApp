@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Password Name</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  {% include '_nav.html' %}
+  <main class="container entry-form-container">
+    <h1>Edit Password Name</h1>
+    {% with messages = get_flashed_messages() %}
+      {% for message in messages %}<p>{{ message }}</p>{% endfor %}
+    {% endwith %}
+    <form method="POST">
+      <label class="field-label" for="entryName">Password name</label>
+      <input id="entryName" type="text" name="entry_name" value="{{ entry.name }}" required>
+      <label class="field-label" for="entryComment">Comment</label>
+      <input id="entryComment" type="text" name="comment" value="{{ entry.comment or '' }}" placeholder="Optional account description">
+      <button type="submit">Save Changes</button>
+    </form>
+    <a href="{{ url_for('generate.generate_password_view') }}"><button type="button">Back to Generator</button></a>
+  </main>
+</body>
+</html>

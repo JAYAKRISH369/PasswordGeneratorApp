@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saved Password Names</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  {% include '_nav.html' %}
+  <main class="container entries-container">
+    <h1>Saved Password Names</h1>
+    <p class="page-intro">Manage the names and comments used to identify your accounts.</p>
+    <a href="{{ url_for('generate.new_entry') }}"><button type="button">Add New Password Name</button></a>
+    {% if saved_entries %}
+      <div class="saved-entry-list">
+        {% for entry in saved_entries %}
+          <div class="saved-entry-row">
+            <div>
+              <strong>{{ entry.name }}</strong>
+              {% if entry.comment %}<small>{{ entry.comment }}</small>{% endif %}
+            </div>
+            <a class="edit-entry-link" href="{{ url_for('generate.edit_entry', entry_id=entry.entry_id) }}">Edit</a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="page-intro">No saved password names yet.</p>
+    {% endif %}
+    <a href="{{ url_for('generate.generate_password_view') }}"><button type="button">Back to Generator</button></a>
+  </main>
+</body>
+</html>

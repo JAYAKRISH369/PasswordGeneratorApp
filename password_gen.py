@@ -161,9 +161,53 @@ def new_entry():
     return redirect(url_for('generate.generate_password_view'))
 
 
+@generate_bp.route('/entries')
+@login_required
+def entries_page():
+    saved_entries = list(entries.find(
+        {'user_id': current_user.id},
+        {'_id': 0, 'entry_id': 1, 'name': 1, 'comment': 1}
+    ).sort('name', 1))
+    return render_template('entries.html', saved_entries=saved_entries)
+
+
 @generate_bp.route('/entry/<entry_id>/delete', methods=['POST'])
 @login_required
 def delete_entry(entry_id):
     entries.delete_one({'user_id': current_user.id, 'entry_id': entry_id})
     flash('Saved password name deleted.')
     return redirect(url_for('generate.generate_password_view'))
+
+
+@generate_bp.route('/entry/<entry_id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_entry(entry_id):
+    entry = entries.find_one({'user_id': current_user.id, 'entry_id': entry_id})
+    if not entry:
+        flash('Saved password name was not found.')
+        return redirect(url_for('generate.generate_password_view'))
+
+    if request.method == 'POST':
+        name = request.form.get('entry_name', '').strip()
+        comment = request.form.get('comment', '').strip()
+        duplicate = entries.find_one({
+            'user_id': current_user.id,
+            'name': name,
+            'entry_id': {'$ne': entry_id}
+        })
+        if not name:
+            flash('A password name is required.')
+        elif duplicate:
+            flash('You already have a saved password with that name.')
+        else:
+            entries.update_one(
+                {'user_id': current_user.id, 'entry_id': entry_id},
+                {'$set': {'name': name, 'comment': comment}}
+            )
+            flash('Saved password name updated.')
+            return redirect(url_for('generate.generate_password_view'))
+
+        entry['name'] = name
+        entry['comment'] = comment
+
+    return render_template('edit_entry.html', entry=entry)

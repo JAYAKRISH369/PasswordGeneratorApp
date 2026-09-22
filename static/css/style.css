@@ -12,6 +12,8 @@ body {
     background-attachment: fixed;
     background-size: cover;
     animation: fadeIn 1s ease-in;
+    padding-top: 64px;
+    padding-bottom: 72px;
 }
 
 /* Animations */
@@ -40,6 +42,101 @@ h1, h2 {
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 255, 200, 0.5);
     animation: slideUp 0.8s ease;
+}
+
+.app-header {
+    position: fixed;
+    z-index: 1000;
+    top: 12px;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: min(760px, calc(100% - 32px));
+    min-height: 46px;
+    padding: 6px 10px 6px 16px;
+    transform: translateX(-50%);
+    border: 1px solid rgba(0, 255, 200, 0.45);
+    border-radius: 14px;
+    background: rgba(5, 20, 24, 0.92);
+    box-shadow: 0 0 18px rgba(0, 255, 200, 0.28);
+    backdrop-filter: blur(12px);
+}
+
+.app-brand {
+    color: #00ffc8;
+    font-size: 14px;
+    text-decoration: none;
+    text-shadow: 0 0 8px #00ffc8;
+}
+
+.menu-button {
+    width: 42px;
+    height: 38px;
+    margin: 0;
+    padding: 0;
+    font-size: 22px;
+    line-height: 1;
+}
+
+.app-menu {
+    position: absolute;
+    top: 56px;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    min-width: 190px;
+    padding: 8px;
+    border: 1px solid rgba(0, 255, 200, 0.5);
+    border-radius: 12px;
+    background: rgba(5, 20, 24, 0.98);
+    box-shadow: 0 0 18px rgba(0, 255, 200, 0.35);
+}
+
+.app-menu.is-open {
+    display: flex;
+}
+
+.app-menu a {
+    padding: 11px 12px;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.app-menu a:hover,
+.app-menu .menu-logout:hover {
+    color: #001c19;
+    background: #00ffc8;
+}
+
+.app-menu .menu-logout {
+    color: #ff9c9c;
+}
+
+.fixed-logout {
+    position: fixed;
+    z-index: 1100;
+    right: 18px;
+    bottom: 18px;
+    display: grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    border: 2px solid #00ffc8;
+    border-radius: 50%;
+    background: rgba(5, 20, 24, 0.95);
+    box-shadow: 0 0 16px rgba(0, 255, 200, 0.7);
+}
+
+.fixed-logout img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.fixed-logout:hover {
+    transform: scale(1.08);
 }
 
 .help-container {
@@ -121,6 +218,118 @@ select {
 .field-label {
     display: block;
     margin-top: 12px;
+}
+
+.logic-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 18px;
+    padding: 14px 16px;
+    border: 1px solid rgba(0, 255, 200, 0.45);
+    border-radius: 12px;
+    background: rgba(0, 255, 200, 0.08);
+}
+
+.logic-toggle-row strong,
+.logic-toggle-row small,
+.saved-entry-row strong,
+.saved-entry-row small {
+    display: block;
+}
+
+.logic-toggle-row small,
+.saved-entry-row small {
+    margin-top: 5px;
+    color: #b7d8d4;
+    font-family: Arial, sans-serif;
+}
+
+.switch {
+    position: relative;
+    flex: 0 0 52px;
+    width: 52px;
+    height: 30px;
+    margin: 0;
+}
+
+.switch input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    border-radius: 30px;
+    background: #26383b;
+    border: 1px solid #00ffc8;
+    transition: 0.25s ease;
+}
+
+.slider::before {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 3px;
+    top: 3px;
+    border-radius: 50%;
+    background: #fff;
+    transition: 0.25s ease;
+}
+
+.switch input:checked + .slider {
+    background: #00bfa5;
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(22px);
+}
+
+.enhanced-options {
+    margin-top: 14px;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(0, 255, 200, 0.25);
+}
+
+.enhanced-options label {
+    display: block;
+    margin-top: 12px;
+}
+
+.enhanced-options input[type="checkbox"] {
+    width: auto;
+    margin: 0 8px 0 0;
+    accent-color: #00ffc8;
+}
+
+.saved-entry-list {
+    margin-top: 24px;
+}
+
+.saved-entry-list h2 {
+    font-size: 18px;
+}
+
+.saved-entry-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.edit-entry-link {
+    color: #00ffc8;
+    white-space: nowrap;
 }
 
 button {
@@ -237,6 +446,8 @@ button:hover {
 @media (max-width: 600px) {
     body {
         font-size: 14px;
+        padding-top: 70px;
+        padding-bottom: 82px;
     }
 
     .container, .complete-profile-container, .help-container {
@@ -252,6 +463,31 @@ button:hover {
     input, button {
         font-size: 14px;
         padding: 10px;
+    }
+
+    select {
+        font-size: 14px;
+    }
+
+    .logic-toggle-row {
+        align-items: flex-start;
+    }
+
+    .app-header {
+        top: 8px;
+        width: calc(100% - 20px);
+    }
+
+    .app-brand {
+        max-width: calc(100% - 58px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .fixed-logout {
+        right: 14px;
+        bottom: 14px;
     }
 
     .password-display {
