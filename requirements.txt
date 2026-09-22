@@ -6,3 +6,4 @@ dnspython
 werkzeug
 requests
 dotenv
+gunicorn
