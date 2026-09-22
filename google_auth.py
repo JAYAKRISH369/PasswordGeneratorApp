@@ -1,5 +1,5 @@
-from flask import Blueprint, redirect, url_for, session, request, render_template, current_app
-from flask_login import login_user, UserMixin
+from flask import Blueprint, redirect, url_for, session, request, render_template, current_app, flash
+from flask_login import login_user, UserMixin, login_required, current_user
 from authlib.integrations.flask_client import OAuth
 from config import Config
 from pymongo import MongoClient
@@ -97,3 +97,29 @@ def complete_profile():
         return redirect(url_for('index'))
 
     return render_template('complete_profile.html')
+
+
+@google_bp.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    user = users_col.find_one({'_id': current_user.id})
+    if not user:
+        return redirect(url_for('auth.login'))
+
+    if request.method == 'POST':
+        username = request.form.get('username', '').strip()
+        part1 = request.form.get('part1', '').strip()
+        part2 = request.form.get('part2', '').strip()
+
+        if not username or not part1 or not part2:
+            flash('Username, Part 1, and Part 2 are required.')
+            return render_template('profile.html', user=user)
+
+        users_col.update_one(
+            {'_id': current_user.id},
+            {'$set': {'username': username, 'part1': part1, 'part2': part2}}
+        )
+        flash('Profile updated successfully.')
+        return redirect(url_for('google.profile'))
+
+    return render_template('profile.html', user=user)

@@ -11,9 +11,21 @@
   <div class="container">
     <h1>Password Generator</h1>
 
+    {% with messages = get_flashed_messages() %}
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    {% endwith %}
+
     {% if not password %}
     <form method="POST">
-      <input type="text" name="name" placeholder="Enter Password Name" required>
+      <label class="field-label" for="savedEntry">Choose a saved password</label>
+      <select class="saved-entry-select" id="savedEntry" name="name" required>
+        <option value="">Choose a saved name</option>
+        {% for entry in saved_entries %}
+          <option value="{{ entry.name }}">{{ entry.name }}{% if entry.comment %} | {{ entry.comment }}{% endif %}</option>
+        {% endfor %}
+      </select>
       <input type="text" name="key" placeholder="Enter Secret Key" required>
 
       <label for="logicToggle">Use Enhanced Logic</label>
@@ -22,15 +34,13 @@
 
       <div id="enhancedOptions" style="display: none;">
         <label>Password Length:
-          <input type="number" name="length" min="8" max="64" value="16">
+          <input type="number" name="length" min="10" max="64" value="16">
         </label>
 
         <label><input type="checkbox" name="use_lower" checked> Lowercase (a-z)</label>
         <label><input type="checkbox" name="use_upper" checked> Uppercase (A-Z)</label>
         <label><input type="checkbox" name="use_digits" checked> Digits (0-9)</label>
         <label><input type="checkbox" name="use_symbols"> Symbols (!@#$%)</label>
-        <label><input type="checkbox" name="use_emojis"> Emojis (🚀💡🎯)</label>
-
         <label for="complexity">Complexity:</label>
         <select name="complexity" id="complexity">
           <option value="1">Easy</option>
@@ -49,6 +59,10 @@
     </form>
     {% endif %}
 
+    {% if not password %}
+      <a href="{{ url_for('generate.new_entry') }}"><button type="button">Add New Password Name</button></a>
+    {% endif %}
+
     {% if password %}
     <div class="password-card">
       <h2>Your Password</h2>
@@ -59,6 +73,7 @@
     {% endif %}
 
     <a href="/"><button style="margin-top: 15px;">⬅ Back to Home</button></a>
+    <a href="{{ url_for('help_page') }}"><button style="margin-top: 15px;">How It Works</button></a>
   </div>
 
   <div style="text-align: right; margin-bottom: 10px;">
@@ -77,6 +92,7 @@
       const logicToggle = document.getElementById("logicToggle");
       const enhancedOptions = document.getElementById("enhancedOptions");
       const modeInput = document.getElementById("modeInput");
+      const savedEntry = document.getElementById("savedEntry");
 
       if (passwordText) {
         passwordText.addEventListener("click", () => {
@@ -84,15 +100,17 @@
         });
       }
 
-      logicToggle.addEventListener("change", function () {
-        if (logicToggle.checked) {
-          enhancedOptions.style.display = "block";
-          modeInput.value = "enhanced";
-        } else {
-          enhancedOptions.style.display = "none";
-          modeInput.value = "basic";
-        }
-      });
+      if (logicToggle) {
+        logicToggle.addEventListener("change", function () {
+          if (logicToggle.checked) {
+            enhancedOptions.style.display = "block";
+            modeInput.value = "enhanced";
+          } else {
+            enhancedOptions.style.display = "none";
+            modeInput.value = "basic";
+          }
+        });
+      }
     });
   </script>
 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="help-container">
+    <h1>Password Generator Help</h1>
+
+    <section class="help-section">
+      <h2>How To Use It</h2>
+      <ol>
+        <li>Add a password name, such as <strong>amazonMe</strong>, from <strong>Add New Password Name</strong>.</li>
+        <li>Add an optional comment to identify the account, such as <strong>personal Gmail</strong>.</li>
+        <li>Choose the saved password name on the generator page.</li>
+        <li>Enter your secret key. The key is never saved in MongoDB.</li>
+        <li>Choose Normal Logic or Enhanced Logic and select <strong>Generate</strong>.</li>
+      </ol>
+    </section>
+
+    <section class="help-section">
+      <h2>Normal Logic</h2>
+      <p>Normal Logic combines these values:</p>
+      <ul>
+        <li>Password name</li>
+        <li>Secret key</li>
+        <li>Profile Part 1</li>
+        <li>Profile Part 2</li>
+      </ul>
+      <p>The same values produce the same result. However, this older method uses character shifting and is less resistant to analysis. Use Enhanced Logic for real accounts.</p>
+    </section>
+
+    <section class="help-section">
+      <h2>Enhanced Logic</h2>
+      <p>Enhanced Logic uses the same core identity values, then applies PBKDF2-SHA256 to make key guessing much more expensive. It also lets you control the password format.</p>
+      <ul>
+        <li><strong>Password Length:</strong> Number of characters. Use 16 or more when the website allows it.</li>
+        <li><strong>Lowercase:</strong> Adds letters from <code>a-z</code>.</li>
+        <li><strong>Uppercase:</strong> Adds letters from <code>A-Z</code>.</li>
+        <li><strong>Digits:</strong> Adds numbers from <code>0-9</code>.</li>
+        <li><strong>Symbols:</strong> Adds punctuation such as <code>! @ # $ %</code>. Enable this when the website accepts symbols.</li>
+        <li><strong>Complexity:</strong> Changes the arrangement of the generated characters. It does not replace a long password.</li>
+        <li><strong>Counter:</strong> Creates a different password for the same account name and key. Increase it if you must change a password.</li>
+        <li><strong>Custom Salt:</strong> Adds another personal input to the derivation. Leave it empty unless you have a specific reason to use one.</li>
+      </ul>
+    </section>
+
+    <section class="help-section warning-section">
+      <h2>Important Security Rules</h2>
+      <ul>
+        <li>Use a long, unique secret key. Do not use a dictionary word, name, birthday, or reused password.</li>
+        <li>Never share your secret key or profile parts.</li>
+        <li>The app stores names and comments, but not generated passwords or secret keys.</li>
+        <li>If you forget the secret key, the app cannot recover the generated password.</li>
+        <li>Use a different password for every website and enable multi-factor authentication where available.</li>
+      </ul>
+    </section>
+
+    <a href="{{ url_for('index') }}"><button type="button">Back to Home</button></a>
+  </main>
+</body>
+</html>

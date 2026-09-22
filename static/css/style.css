@@ -42,6 +42,46 @@ h1, h2 {
     animation: slideUp 0.8s ease;
 }
 
+.help-container {
+    max-width: 760px;
+    margin: 50px auto;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 255, 200, 0.5);
+    animation: slideUp 0.8s ease;
+}
+
+.help-section {
+    margin-top: 24px;
+    padding: 20px;
+    border-left: 3px solid #00ffc8;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.help-section h2 {
+    text-align: left;
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.help-section li {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.help-section p {
+    line-height: 1.6;
+}
+
+.help-section code {
+    color: #00ffc8;
+}
+
+.warning-section {
+    border-left-color: #ffcc00;
+}
+
 /* Container without background (logout) */
 .containerLogout {
     max-width: 500px;
@@ -64,6 +104,23 @@ input {
     background-color: #111;
     color: #0f0;
     border: 1px solid #0ff;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #0ff;
+    background-color: #111;
+    color: #00ffc8;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.field-label {
+    display: block;
+    margin-top: 12px;
 }
 
 button {
@@ -182,7 +239,7 @@ button:hover {
         font-size: 14px;
     }
 
-    .container, .complete-profile-container {
+    .container, .complete-profile-container, .help-container {
         width: 90%;
         padding: 20px 15px;
         margin: 20px auto;

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="complete-profile-container">
+    <h2>Edit Your Profile</h2>
+    {% with messages = get_flashed_messages() %}
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    {% endwith %}
+    <form method="POST">
+      <input type="text" name="username" value="{{ user.get('username', '') }}" placeholder="Choose a Username" required>
+      <input type="text" name="part1" value="{{ user.get('part1', '') }}" placeholder="Enter Part 1" required>
+      <input type="text" name="part2" value="{{ user.get('part2', '') }}" placeholder="Enter Part 2" required>
+      <button type="submit">Save Changes</button>
+    </form>
+    <a href="{{ url_for('index') }}"><button style="margin-top: 15px;">Back to Home</button></a>
+  </div>
+</body>
+</html>

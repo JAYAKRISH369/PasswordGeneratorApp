@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Password Name</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Add Password Name</h1>
+    {% with messages = get_flashed_messages() %}
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    {% endwith %}
+    <form method="POST">
+      <input type="text" name="entry_name" placeholder="e.g. amazonMe" required>
+      <input type="text" name="comment" placeholder="Optional comment, e.g. personal Gmail">
+      <button type="submit">Save Name</button>
+    </form>
+    <a href="{{ url_for('index') }}"><button type="button" style="margin-top: 15px;">Back to Home</button></a>
+  </div>
+</body>
+</html>

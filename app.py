@@ -36,6 +36,11 @@ def index():
     print("current User Info:", current_user.id, current_user.name, current_user.email)
     return render_template('index.html', username=current_user.name)
 
+@app.route('/help')
+@login_required
+def help_page():
+    return render_template('help.html')
+
 @app.route('/logout')
 @login_required
 def logout():
